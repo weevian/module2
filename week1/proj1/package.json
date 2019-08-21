@@ -1,0 +1,15 @@
+{
+  "name": "proj1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "nid-change-case-lower-upper": "^2.1.1",
+    "to-upper": "^1.0.1"
+  }
+}

@@ -1,0 +1,17 @@
+MODULE 2
+
+21/08/2019
+
+CMS - Content Management System
+2 Stack families: MEAN Stack and LAMP Stack
+MEAN - MongoDB Express Angular.js Node.js
+LAMP - Linux Apache MySQL PHP,Pearl,Python
+
+Apache - Web browser to/ from web server
+
+In Stack, 1st thing is OS, 2nd is Apache, 3rd is DB, 4th is frontend language
+
+Builtwith website can be used to check the tools used to build a site.
+
+Tools that are usually used to build eCommerce websites:-
+WordPress, Magento, Shopify, WooCommerce
