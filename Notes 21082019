@@ -15,3 +15,15 @@ Builtwith website can be used to check the tools used to build a site.
 
 Tools that are usually used to build eCommerce websites:-
 WordPress, Magento, Shopify, WooCommerce
+
+--------------------------------------------------------------------------------------------------
+
+command lines to create projects in NodeJS
+
+npm init - to declare this folder is a node js project
+npm install x y z - install module x, y and z in the current folder
+npm install -g xyz - this will install xyz globally, when you are downloading and installing an application
+<< create your index.js>>
+node index.js
+
+install nodemon
