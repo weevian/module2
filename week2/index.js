@@ -76,7 +76,7 @@ function(bot, message) {
        convo.next();
     },{},'default'); 
     
-    convo.addQuestion('Who are you going with? Is it a business or vacation trip?', function(response, convo){
+    convo.addQuestion('Who are you going with?', function(response, convo){
         friend = response.text
         purpose = response.text
         bot.reply(message, 'Great! You are going with ' + friend + ' for ' + purpose + '. Enjoy your trip!')
