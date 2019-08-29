@@ -1,4 +1,5 @@
 var Botkit = require('botkit')
+const request = require('request');
 
 if (!process.env.token) {
  console.log('Error: Specify token in environment');
@@ -75,12 +76,28 @@ function(bot, message) {
        + finalPrice)
        convo.next();
     },{},'default'); 
-    
-    convo.addQuestion('Who are you going with?', function(response, convo){
-        friend = response.text
-        purpose = response.text
-        bot.reply(message, 'Great! You are going with ' + friend + ' for ' + purpose + '. Enjoy your trip!')
-        convo.next();
-    },{},'default');
 });
 });
+
+
+controller.hears(
+    ['weather'], 'direct_message,direct_mention,mention',
+function(bot, message) {
+ bot.startConversation(message, function(err, convo){
+var city = ''
+     convo.addQuestion('Hi! Tell me where you are?', function(response, convo){ 
+        city = response.text
+            
+         request("https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=b6907d289e10d714a6e88b30761fae22", function (error, response, body) {
+             console.error('error:', error); // Print the error if one occurred
+             console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+             console.log('body:', body); // Print the HTML for the Google homepage.
+             var jsonBody = JSON.parse(body)
+             var deg = jsonBody.main.temp - 273.15
+         convo.say('The weather in ' + city + ' is ' + jsonBody.weather[0].main 
+         + ' and the temperature is ' + Math.round(deg,2) + '\xB0C')
+         convo.next();
+    })
+},{},'default');
+});
+})
