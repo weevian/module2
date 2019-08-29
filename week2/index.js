@@ -88,7 +88,7 @@ var city = ''
      convo.addQuestion('Hi! Tell me where you are?', function(response, convo){ 
         city = response.text
             
-         request("https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=b6907d289e10d714a6e88b30761fae22", function (error, response, body) {
+         request("https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appId=9fd7a449d055dba26a982a3220f32aa2", function (error, response, body) {
              console.error('error:', error); // Print the error if one occurred
              console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
              console.log('body:', body); // Print the HTML for the Google homepage.
