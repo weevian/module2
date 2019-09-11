@@ -1,0 +1,209 @@
+-----------------------------------------------------------------------------------
+MONGODB CHALLENGE 06/09/2019 TUTORIAL
+-----------------------------------------------------------------------------------
+
+[weevian@arch ~]$ mongo "mongodb+srv://cluster0-piuqt.mongodb.net/test" --username weevianapi
+MongoDB shell version v4.0.9
+Enter password: 
+connecting to: mongodb://cluster0-shard-00-00-piuqt.mongodb.net.:27017,cluster0-shard-00-01-piuqt.mongodb.net.:27017,cluster0-shard-00-02-piuqt.mongodb.net.:27017/test?authSource=admin&gssapiServiceName=mongodb&replicaSet=Cluster0-shard-0&ssl=true
+Implicit session: session { "id" : UUID("2ea30bf3-e6a2-493e-9d0c-b63ca2d6369a") }
+MongoDB server version: 4.0.12
+Error while trying to show server startup warnings: user is not allowed to do action [getLog] on [admin.]
+MongoDB Enterprise Cluster0-shard-0:PRIMARY> show dbs
+admin         0.000GB
+local         1.052GB
+taskDatabase  0.000GB
+test          0.000GB
+
+------------------------------------------------------------------------------------------------
+
+MongoDB Enterprise Cluster0-shard-0:PRIMARY> db.movies.insert({title:"Fight Club", writer:"Chuck Palahniuk", year:1999, actors:['Brad Pitt', 'Edward Norton']})
+WriteResult({ "nInserted" : 1 })
+MongoDB Enterprise Cluster0-shard-0:PRIMARY> db.movies.insert({title:"Pulp Fiction", writer:"Quentin Tarantino", year:1994, actors:['John Travolta', 'Uma Thurman']})
+WriteResult({ "nInserted" : 1 })
+MongoDB Enterprise Cluster0-shard-0:PRIMARY> db.movies.insert({title:"Inglorious Basterds", writer:"Quentin Tarantino", year:2009, actors:['Brad Pitt', 'Diane Kruger', 'Eli Roth']})
+WriteResult({ "nInserted" : 1 })
+MongoDB Enterprise Cluster0-shard-0:PRIMARY> db.movies.insert({title:"The Hobbit: An Unexpected Journey", writer:"J.R.R. Tolkein", year:2012, franchise:"The Hobbit"})
+WriteResult({ "nInserted" : 1 })
+MongoDB Enterprise Cluster0-shard-0:PRIMARY> db.movies.insert({title:"The Hobbit: The Desolation of Smaug", writer:"J.R.R. Tolkein", year:2013, franchise:"The Hobbit"})
+WriteResult({ "nInserted" : 1 })
+MongoDB Enterprise Cluster0-shard-0:PRIMARY> db.movies.insert({title:"The Hobbit: The Battle of the Five Armies", writer:"J.R.R. Tolkein", year:2012, franchise:"The Hobbit", synopsis:"Bilbo and company are forced to engage in a war against an array of combatants and keep the lonely Mountain from falling into the hands of a rising darkness."})
+WriteResult({ "nInserted" : 1 })
+MongoDB Enterprise Cluster0-shard-0:PRIMARY> db.movies.insert({title:"Pee Wee Herman's Big Adventure"})
+WriteResult({ "nInserted" : 1 })
+MongoDB Enterprise Cluster0-shard-0:PRIMARY> db.movies.insert({title:"Avatar"})
+WriteResult({ "nInserted" : 1 })
+
+------------------------------------------------------------------------------------------------
+
+MongoDB Enterprise Cluster0-shard-0:PRIMARY> db.movies.find().pretty()
+{
+	"_id" : ObjectId("5d72b988d2635207f517e5ea"),
+	"title" : "Fight Club",
+	"writer" : "Chuck Palahniuk",
+	"year" : 1999,
+	"actors" : [
+		"Brad Pitt",
+		"Edward Norton"
+	]
+}
+{
+	"_id" : ObjectId("5d72ba09d2635207f517e5eb"),
+	"title" : "Pulp Fiction",
+	"writer" : "Quentin Tarantino",
+	"year" : 1994,
+	"actors" : [
+		"John Travolta",
+		"Uma Thurman"
+	]
+}
+{
+	"_id" : ObjectId("5d72ba6fd2635207f517e5ec"),
+	"title" : "Inglorious Basterds",
+	"writer" : "Quentin Tarantino",
+	"year" : 2009,
+	"actors" : [
+		"Brad Pitt",
+		"Diane Kruger",
+		"Eli Roth"
+	]
+}
+{
+	"_id" : ObjectId("5d72bac6d2635207f517e5ed"),
+	"title" : "The Hobbit: An Unexpected Journey",
+	"writer" : "J.R.R. Tolkein",
+	"year" : 2012,
+	"franchise" : "The Hobbit"
+}
+{
+	"_id" : ObjectId("5d72baead2635207f517e5ee"),
+	"title" : "The Hobbit: The Desolation of Smaug",
+	"writer" : "J.R.R. Tolkein",
+	"year" : 2013,
+	"franchise" : "The Hobbit"
+}
+{
+	"_id" : ObjectId("5d72bb60d2635207f517e5ef"),
+	"title" : "The Hobbit: The Battle of the Five Armies",
+	"writer" : "J.R.R. Tolkein",
+	"year" : 2012,
+	"franchise" : "The Hobbit",
+	"synopsis" : "Bilbo and company are forced to engage in a war against an array of combatants and keep the lonely Mountain from falling into the hands of a rising darkness."
+}
+{
+	"_id" : ObjectId("5d72bb7ad2635207f517e5f0"),
+	"title" : "Pee Wee Herman's Big Adventure"
+}
+{ "_id" : ObjectId("5d72bb82d2635207f517e5f1"), "title" : "Avatar" }
+
+------------------------------------------------------------------------------------------------
+
+MongoDB Enterprise Cluster0-shard-0:PRIMARY> db.movies.find({writer:"Quentin Tarantino"}).pretty()
+{
+	"_id" : ObjectId("5d72ba09d2635207f517e5eb"),
+	"title" : "Pulp Fiction",
+	"writer" : "Quentin Tarantino",
+	"year" : 1994,
+	"actors" : [
+		"John Travolta",
+		"Uma Thurman"
+	]
+}
+{
+	"_id" : ObjectId("5d72ba6fd2635207f517e5ec"),
+	"title" : "Inglorious Basterds",
+	"writer" : "Quentin Tarantino",
+	"year" : 2009,
+	"actors" : [
+		"Brad Pitt",
+		"Diane Kruger",
+		"Eli Roth"
+	]
+}
+
+------------------------------------------------------------------------------------------------
+
+MongoDB Enterprise Cluster0-shard-0:PRIMARY> db.movies.find({actors:"Brad Pitt"}).pretty()
+{
+	"_id" : ObjectId("5d72b988d2635207f517e5ea"),
+	"title" : "Fight Club",
+	"writer" : "Chuck Palahniuk",
+	"year" : 1999,
+	"actors" : [
+		"Brad Pitt",
+		"Edward Norton"
+	]
+}
+{
+	"_id" : ObjectId("5d72ba6fd2635207f517e5ec"),
+	"title" : "Inglorious Basterds",
+	"writer" : "Quentin Tarantino",
+	"year" : 2009,
+	"actors" : [
+		"Brad Pitt",
+		"Diane Kruger",
+		"Eli Roth"
+	]
+}
+
+
+------------------------------------------------------------------------------------------------
+
+MongoDB Enterprise Cluster0-shard-0:PRIMARY> db.movies.find({franchise:"The Hobbit"}).pretty()
+{
+	"_id" : ObjectId("5d72bac6d2635207f517e5ed"),
+	"title" : "The Hobbit: An Unexpected Journey",
+	"writer" : "J.R.R. Tolkein",
+	"year" : 2012,
+	"franchise" : "The Hobbit"
+}
+{
+	"_id" : ObjectId("5d72baead2635207f517e5ee"),
+	"title" : "The Hobbit: The Desolation of Smaug",
+	"writer" : "J.R.R. Tolkein",
+	"year" : 2013,
+	"franchise" : "The Hobbit"
+}
+{
+	"_id" : ObjectId("5d72bb60d2635207f517e5ef"),
+	"title" : "The Hobbit: The Battle of the Five Armies",
+	"writer" : "J.R.R. Tolkein",
+	"year" : 2012,
+	"franchise" : "The Hobbit",
+	"synopsis" : "Bilbo and company are forced to engage in a war against an array of combatants and keep the lonely Mountain from falling into the hands of a rising darkness."
+}
+
+------------------------------------------------------------------------------------------------
+
+MongoDB Enterprise Cluster0-shard-0:PRIMARY> db.movies.find({"year":{$lt:2000}}).pretty()
+{
+	"_id" : ObjectId("5d72b988d2635207f517e5ea"),
+	"title" : "Fight Club",
+	"writer" : "Chuck Palahniuk",
+	"year" : 1999,
+	"actors" : [
+		"Brad Pitt",
+		"Edward Norton"
+	]
+}
+{
+	"_id" : ObjectId("5d72ba09d2635207f517e5eb"),
+	"title" : "Pulp Fiction",
+	"writer" : "Quentin Tarantino",
+	"year" : 1994,
+	"actors" : [
+		"John Travolta",
+		"Uma Thurman"
+	]
+}
+
+
+------------------------------------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------------------------------------

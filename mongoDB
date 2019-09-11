@@ -1,0 +1,8 @@
+MODULE 2 WEEK 3
+-------------------------------------------------------------------------------
+MONGODB 
+
+show dbs ==> show all databases
+db.shows 
+db.<collection name>.find() ==> show all data in a collection
+
