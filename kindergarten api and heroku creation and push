@@ -1,0 +1,39 @@
+WEEK 4 - CREATE APIs
+
+-------------------------------------------------------------------
+
+1. mkdir week4
+2. npm init
+3. npm i express mongoose body-parser 
+4. touch index.js
+
+-------------------------------------------------------------------
+
+ACTION	|	METHOD			|	PATH
+
+Create	|	POST			|	/kindergartens
+Read	|	GET			|	/kindergartens
+Update	|	POST/ PUT/ UPDATE	|	/kindergartens//
+Delete	|	DELETE/ POST		|	/kindergartens/delete
+
+POST - UPDATE EVERYTHING/ ALL DATA - EG. UPDATE PROFILE, ALL FIELDS FILLED, CAN UPDATE ANYTHING AND POST 1 SHOT
+PUT - UPDATE 1 DATA
+
+
+
+git init
+git add .
+git commit -am "add item"
+heroku create wv-kindergarten-api
+
+go to the folder, create procfile (no extension)
+in procfile, insert: web: node index.js
+go to package json
+insert under "test": "start": "node index.js"
+save the above changes
+
+
+
+git add .
+git commit -am "update item"
+git push heroku master
