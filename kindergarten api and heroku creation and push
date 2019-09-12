@@ -27,11 +27,10 @@ git commit -am "add item"
 heroku create wv-kindergarten-api
 
 go to the folder, create procfile (no extension)
-in procfile, insert: web: node index.js
+in procfile, insert >> web: node index.js
 go to package json
-insert under "test": "start": "node index.js"
+insert under "test" line >> "start": "node index.js"
 save the above changes
-
 
 
 git add .
