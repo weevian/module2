@@ -1,5 +1,14 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+
+
+// child schema must be above parent schema
+var ReviewSchema = new Schema ({
+    username: String,
+    rating: Number,
+    message: String
+})
+
 var KindergartenSchema = new Schema ({
 name: String,
 description: String,
@@ -10,7 +19,10 @@ url: String,
 opening_hours:[String],
 image_url: String,
 latitude: Number,
-longitude: Number
+longitude: Number,
+avgRating: {type: Number, default:0},
+reviews: [ReviewSchema],
+createdAt:{type:Date, default:Date.now}
 })
 
 module.exports = mongoose.model('Kindergarten', KindergartenSchema)

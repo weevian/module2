@@ -3,6 +3,7 @@ var app = express(); // define our app using express
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose'); 
 var Kindergarten = require('./kindergarten') //var here must be the same as kindergarten.js module exports.
+// var Review = require('./review')
 mongoose.connect('mongodb+srv://weevianapi:abcd1234@cluster0-piuqt.mongodb.net/test?retryWrites=true&w=majority') // connect to mongodb
 
 app.use(bodyParser.urlencoded({ extended: true}));
@@ -69,6 +70,48 @@ Kindergarten.findById(req.params.id, function(err,kindergarten){
 })
 })
 
+// URL route - REVIEW
+
+router.route('/kindergartens/:id/reviews')
+
+.post(function(req, res){
+var newReview = {
+    username: req.body.username,
+    rating: req.body.rating,
+    message: req.body.message
+}
+Kindergarten.findById(req.params.id, function(err, kindergarten){
+    if (kindergarten.reviews.length > 0){
+        console.log("scenario a", newReview.rating)
+        kindergarten.avgRating = (newReview.rating +
+            (kindergarten.reviews.length *kindergarten.avgRating))
+            /
+            (kindergarten.reviews.length + 1)
+            kindergarten.reviews.push(newReview)
+    } else {
+        console.log("scenario b", newReview.rating)
+        kindergarten.reviews = [newReview]
+        kindergarten.avgRating = newReview.rating
+    }
+    kindergarten.save(function(err){
+        if(err){
+            res.send(err)
+        } else {
+            res.json({message: "Review succesfully added!"})
+        }
+    })
+    })
+})
+.get(function(req,res){
+Kindergarten.findById(req.params.id, function(err, kindergarten){
+    if(err){
+        res.send(err)
+    } else {
+        res.json({status:"ok", data:kindergarten.reviews})
+    }
+})
+
+})
 // another URL - to update
 
 router.route('/kindergartens/:id')
@@ -98,6 +141,37 @@ router.route('/kindergartens/:id')
                 }
             })
         } 
+    })
+})
+
+router.get('/find-top-5', function(req, res){
+Kindergarten.find().limit(5).sort({avgRating:-1}).exec(function(err,kindergarten){
+if (err) {
+    res.send(err)
+} else {
+    res.json({data:kindergartens}) //will show 5 kindergartens, so plural here
+}
+})
+})
+
+router.get('/latest-addition', function(req,res){
+    Kindergarten.find().limit(1).sort({createdAt:-1}).exec(function(err,kindergarten){
+        if (err) {
+            res.send (err)
+        } else {
+            res.json({data:kindergarten})
+        }
+    })
+})
+
+router.get('/search/:searchText',function(req,res){
+    Kindergarten.find({name:{"$regex":req.params.searchText, "$options":"i"}})
+    .exec(function(err, kindergartens){
+        if (err) {
+            res.send(err)
+        } else {
+            res.json({data:kindergartens})
+        }
     })
 })
 
