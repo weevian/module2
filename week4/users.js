@@ -8,8 +8,15 @@ var UserSchema = new Schema ({
 })
 
 UserSchema.pre('save', function(callback){
+    UserSchema.methods.comparePassword = function(password, cb) {  
+        bcrypt.compare(password, 
+            this.password, 
+            function(err, isMatch) {    
+        if (err) return cb(err);    
+        cb(null, isMatch);  
+    });
+    };
 var user = this;
-
 if (!user.isModified('password')) return callback();
 bcrypt.genSalt(5, function(err, salt){
     if (err) return callback (err);

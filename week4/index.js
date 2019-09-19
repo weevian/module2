@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose'); 
 var Kindergarten = require('./kindergarten') //var here must be the same as kindergarten.js module exports.
 var User = require('./users')
+var auth = require ('./auth')()
 // var Review = require('./review')
 mongoose.connect('mongodb+srv://weevianapi:abcd1234@cluster0-piuqt.mongodb.net/test?retryWrites=true&w=majority') // connect to mongodb
 
