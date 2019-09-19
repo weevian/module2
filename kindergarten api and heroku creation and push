@@ -19,6 +19,15 @@ Delete	|	DELETE/ POST		|	/kindergartens/delete
 POST - UPDATE EVERYTHING/ ALL DATA - EG. UPDATE PROFILE, ALL FIELDS FILLED, CAN UPDATE ANYTHING AND POST 1 SHOT
 PUT - UPDATE 1 DATA
 
+--------------------------------------------------------------------
+
+Steps:
+
+1. Schema
+2. Methods : POST, GET, PUT, UPDATE, DELETE
+3. Url path
+
+
 
 
 git init

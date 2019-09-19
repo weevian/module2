@@ -3,6 +3,7 @@ var app = express(); // define our app using express
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose'); 
 var Kindergarten = require('./kindergarten') //var here must be the same as kindergarten.js module exports.
+var User = require('./users')
 // var Review = require('./review')
 mongoose.connect('mongodb+srv://weevianapi:abcd1234@cluster0-piuqt.mongodb.net/test?retryWrites=true&w=majority') // connect to mongodb
 
@@ -20,6 +21,7 @@ router.get('/', function(req, res){
 // POST and GET use the same URL
 
 router.route('/kindergartens') 
+
 .post(function(req, res){
     var kindergarten = new Kindergarten();
     kindergarten.name = req.body.name;
@@ -174,6 +176,45 @@ router.get('/search/:searchText',function(req,res){
         }
     })
 })
+
+//--------------------------------------------------------
+// USER API
+
+router.route('/register')
+
+.post(function(req, res){
+    var newUser = new User();
+    newUser.username = req.body.username;
+    newUser.password = req.body.password
+
+    newUser.save(function(err){
+        if (err){
+            res.send (err)
+        } else {
+            res.json ({message:'User registration successful!'})
+        }
+    })
+})
+
+router.route('/login')
+
+.post(function(req, res){
+    User.findOne({username:req.body.username}, function(err, user){
+            if (user){
+                user.authenticate(req.body.password, function(err, user){
+                    var token = jwt.sign(user.toJSON(), config.secret, {
+                        expiresIn: 10080
+                    })
+                })
+                res.json({success: true, token:"JWT" + token})
+            } else {
+            res.send({success: false, message: 'Authentication failed'})
+            }
+    }) 
+})
+
+
+
 
 app.use('/api', router);
 
