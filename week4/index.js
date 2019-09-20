@@ -5,6 +5,8 @@ var mongoose = require('mongoose');
 var Kindergarten = require('./kindergarten') //var here must be the same as kindergarten.js module exports.
 var User = require('./users')
 var auth = require ('./auth')()
+var jwt = require ('jsonwebtoken')
+var config = require ('./config')
 // var Review = require('./review')
 mongoose.connect('mongodb+srv://weevianapi:abcd1234@cluster0-piuqt.mongodb.net/test?retryWrites=true&w=majority') // connect to mongodb
 
@@ -202,12 +204,12 @@ router.route('/login')
 .post(function(req, res){
     User.findOne({username:req.body.username}, function(err, user){
             if (user){
-                user.authenticate(req.body.password, function(err, user){
+                user.comparePassword(req.body.password, function(err, isMatch){
                     var token = jwt.sign(user.toJSON(), config.secret, {
                         expiresIn: 10080
                     })
+                    res.json({success: true, token:"JWT" + token})
                 })
-                res.json({success: true, token:"JWT" + token})
             } else {
             res.send({success: false, message: 'Authentication failed'})
             }
@@ -216,7 +218,7 @@ router.route('/login')
 
 
 
-
+app.use(auth.initialize())
 app.use('/api', router);
 
 app.listen(port);
