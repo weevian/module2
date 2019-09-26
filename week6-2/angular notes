@@ -1,0 +1,19 @@
+-----------------------------------------------------------------------------
+ANGULAR
+-----------------------------------------------------------------------------
+
+1. mg new my-cms-app
+2. cd my-cms-app
+3. ng serve
+4. ng g component <name of component>
+5. ng g service api
+6. in app.module.ts >>> import { HttpClientModule } from '@angular/common/http' 
+7.  in @NgModule imports: [HttpClientModule]
+8. in api.service.ts >>> import { HttpClient } from '@angular/common/http'
+9. inject >>> constructor(public httpClient:HttpClient) { }
+10. 
+
+
+
+- the more you want to use a component, the more you should separate it
+
